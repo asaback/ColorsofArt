@@ -1,0 +1,34 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+
+h1 {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+#buttonLeft,
+#buttonRight {
+  cursor: pointer;
+  position: absolute;
+  width: auto;
+  margin-top: -22px;
+  font-weight: bold;
+  font-size: 18px;
+  border-style: none;
+}
+
+#buttonLeft {
+  top: 50%;
+  left: 10%;
+}
+
+#buttonRight {
+  top: 50%;
+  left: 85%;
+}
