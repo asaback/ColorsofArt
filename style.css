@@ -2,9 +2,13 @@ html,
 body {
   margin: 0;
   padding: 0;
+  justify-content: center;
+  align-items: center;
 }
 canvas {
   display: block;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -31,4 +35,9 @@ h1 {
 #buttonRight {
   top: 50%;
   left: 85%;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
 }

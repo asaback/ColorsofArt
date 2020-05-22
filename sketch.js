@@ -1,54 +1,51 @@
 let artWorkArray;
 let img = [];
 let currentNum = 0;
-let loop = false;
-let modalToggle = false;
+let apiCall;
+
+function preload() {
+  let url =
+    "https://www.rijksmuseum.nl/api/nl/usersets/2772616-my-first-collection?key=r2pysCE2&format=json";
+  apiCall = loadJSON(url);
+}
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  var canvas = createCanvas(windowWidth, windowHeight);
+  canvas.parent("sketch-holder");
 
-  loadJSON(
-    "https://www.rijksmuseum.nl/api/nl/usersets/2772616-my-first-collection?key=r2pysCE2&format=json",
-    gotData
-  );
+  artWorkArray = apiCall.userSet.setItems;
+  console.log(artWorkArray);
+  for (i = 0; i < artWorkArray.length; i++) {
+    img[i] = createImg(
+      artWorkArray[i].image.cdnUrl,
+      "alt text",
+      (crossorigin = "Anonymous")
+    );
 
-  noLoop();
+    img[i].hide();
+  }
+
+  // loadJSON(
+  //   "https://www.rijksmuseum.nl/api/nl/usersets/2772616-my-first-collection?key=r2pysCE2&format=json",
+  //   gotData
+  // );
+
 }
 
-function gotData(data) {
-  artWorkArray = data.userSet.setItems;
-}
+// function gotData(data) {
+//   artWorkArray = data.userSet.setItems;
+// }
 
 function draw() {
   if (artWorkArray) {
-    for (i = 0; i < artWorkArray.length; i++) {
-      img[i] = createImg(
-        artWorkArray[i].image.cdnUrl,
-        "alt text",
-        (crossorigin = "Anonymous")
-      );
-
-      img[i].hide();
-    }
-
     image(img[currentNum], 300, 40, 400, 610);
     makeColorArt();
     console.log(currentNum);
-
-    if (modalToggle) {
-      fill("#FFF");
-      rect(100, 100, 100, 100);
-    }
+    
   }
 }
 
-function mousePressed() {
-  redraw();
-  if (mouseX > 300 && mouseX < 1120 && mouseY > 120 && mouseY < 730) {
-    modalToggle = !modalToggle;
-    console.log(modalToggle);
-  }
-}
+function mousePressed() {}
 
 function makeColorArt() {
   for (j = 0; j < 600; j++) {
@@ -63,14 +60,12 @@ function makeColorArt() {
 function toggleForward() {
   if (currentNum <= artWorkArray.length) {
     currentNum = currentNum + 1;
-    
   } else {
     currentNum = 0;
   }
 }
 
 function toggleBackward() {
-  
   if (currentNum > 0) {
     currentNum = currentNum - 1;
   } else {
@@ -78,10 +73,12 @@ function toggleBackward() {
   }
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 // To do:
 // Make the get function take user input as args
-// Push to github
-// Hook it up to netlify or github pages
 
 // Maybe:
 // Add music? classic that is mutable
