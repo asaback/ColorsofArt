@@ -6,9 +6,11 @@ body {
   align-items: center;
 }
 canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
   display: block;
-  justify-content: center;
-  align-items: center;
 }
 
 h1 {
