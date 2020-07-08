@@ -5,21 +5,20 @@ let apiCall;
 
 function preload() {
   let url =
-    'https://www.rijksmuseum.nl/api/nl/usersets/2772616-my-first-collection?key=r2pysCE2&format=json';
+    "https://www.rijksmuseum.nl/api/nl/usersets/2772616-my-first-collection?key=r2pysCE2&format=json";
   apiCall = loadJSON(url);
 }
 
 function setup() {
   var canvas = createCanvas(windowWidth, windowHeight);
-  canvas.parent('sketch-holder');
+  canvas.parent("sketch-holder");
 
   artWorkArray = apiCall.userSet.setItems;
-  console.log(artWorkArray);
   for (i = 0; i < artWorkArray.length; i++) {
     img[i] = createImg(
       artWorkArray[i].image.cdnUrl,
-      'alt text',
-      (crossorigin = 'Anonymous')
+      "alt text",
+      (crossorigin = "Anonymous")
     );
 
     img[i].hide();
@@ -37,21 +36,24 @@ function setup() {
 
 function draw() {
   if (artWorkArray) {
-    image(img[currentNum], 300, 40, 400, 610);
+    image(
+      img[currentNum],
+      windowWidth / 6,
+      windowHeight / 50,
+      windowWidth / 3,
+      windowHeight / 1.2
+    );
     makeColorArt();
-    console.log(currentNum);
   }
 }
 
-function mousePressed() {}
-
 function makeColorArt() {
-  for (j = 0; j < 600; j++) {
-    let c = get(500, j + 10);
-    console.log(c);
+  for (j = 0; j < windowHeight / 1.2; j++) {
+    let c = get(windowWidth / 3, j + windowHeight / 50);
+    console.log(c, "hello");
     fill(c);
     noStroke();
-    rect(720, j + 10, 400, 40);
+    rect(windowWidth / 2 + 10, j + windowHeight / 50, windowWidth / 3, 1);
   }
 }
 
