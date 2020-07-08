@@ -48,7 +48,6 @@ function mousePressed() {}
 function makeColorArt() {
   for (j = 0; j < 600; j++) {
     let c = get(500, j + 10);
-    // let c = get(315 + j, 880 + j)
     console.log(c);
     fill(c);
     noStroke();
