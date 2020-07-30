@@ -7,6 +7,7 @@ function preload() {
   let url =
     "https://www.rijksmuseum.nl/api/nl/usersets/2772616-my-first-collection?key=r2pysCE2&format=json";
   apiCall = loadJSON(url);
+  console.log("hej", apiCall);
 }
 
 function setup() {
@@ -14,28 +15,31 @@ function setup() {
   canvas.parent("sketch-holder");
 
   artWorkArray = apiCall.userSet.setItems;
+  const imgArray = [];
   for (i = 0; i < artWorkArray.length; i++) {
-    img[i] = createImg(
-      artWorkArray[i].image.cdnUrl,
-      "alt text",
-      (crossorigin = "Anonymous")
-    );
-
-    img[i].hide();
+    imgArray.push(artWorkArray[i].image.cdnUrl);
   }
 
-  // loadJSON(
-  //   "https://www.rijksmuseum.nl/api/nl/usersets/2772616-my-first-collection?key=r2pysCE2&format=json",
-  //   gotData
-  // );
+  for (i = 0; i < imgArray.length; i++)
+    img[i] = createImg(imgArray[i], "alt text", (crossorigin = "Anonymous"));
+
+  renderImage();
 }
 
-// function gotData(data) {
-//   artWorkArray = data.userSet.setItems;
+// function draw() {
+//   image(
+//     img[currentNum],
+//     windowWidth / 6,
+//     windowHeight / 50,
+//     windowWidth / 3,
+//     windowHeight / 1.2
+//   );
+//   makeColorArt();
+//   noLoop();
 // }
 
-function draw() {
-  if (artWorkArray) {
+function renderImage() {
+  if (img[currentNum]) {
     image(
       img[currentNum],
       windowWidth / 6,
@@ -50,7 +54,6 @@ function draw() {
 function makeColorArt() {
   for (j = 0; j < windowHeight / 1.2; j++) {
     let c = get(windowWidth / 3, j + windowHeight / 50);
-    console.log(c, "hello");
     fill(c);
     noStroke();
     rect(windowWidth / 2 + 10, j + windowHeight / 50, windowWidth / 3, 1);
@@ -58,28 +61,24 @@ function makeColorArt() {
 }
 
 function toggleForward() {
-  if (currentNum <= artWorkArray.length) {
+  if (currentNum < artWorkArray.length - 1) {
     currentNum = currentNum + 1;
   } else {
     currentNum = 0;
   }
+  renderImage();
 }
 
 function toggleBackward() {
   if (currentNum > 0) {
     currentNum = currentNum - 1;
   } else {
-    currentNum = artWorkArray.length;
+    currentNum = artWorkArray.length - 1;
   }
+  renderImage();
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  renderImage();
 }
-
-// To do:
-// Make the get function take user input as args
-
-// Maybe:
-// Add music? classic that is mutable
-// Add modal?
