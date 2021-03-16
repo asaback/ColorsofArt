@@ -1,3 +1,7 @@
+Live at: https://generativecolorart.netlify.app/
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
 # Webpack - Tools to automate your development
 This folder contains a boilerplate to a project containing tools for helping you automating:
 * **Formatting** - Make your code look nice and easy to read
